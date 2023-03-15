@@ -22,7 +22,9 @@ namespace CGL {
 
         // TODO Project 3-2: Part 1
         // Implement MirrorBSDF
-        return Vector3D();
+        reflect(wo, wi);
+        *pdf = 1.0;
+        return reflectance / abs_cos_theta(*wi);
     }
 
     void MirrorBSDF::render_debugger_node()
