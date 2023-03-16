@@ -94,7 +94,12 @@ namespace CGL {
     Vector3D RefractionBSDF::sample_f(const Vector3D wo, Vector3D* wi, double* pdf) {
         // TODO Project 3-2: Part 1
         // Implement RefractionBSDF
-        return Vector3D();
+        double n = wo.x < 0 ? ior : 1.0 / ior;
+        bool result = refract(wo, wi, ior);
+        if (!result) {
+            return Vector3D();
+        }
+        return transmittance / abs_cos_theta(*wi) / (n * n);
     }
 
     void RefractionBSDF::render_debugger_node()
@@ -150,6 +155,23 @@ namespace CGL {
         // and true otherwise. When dot(wo,n) is positive, then wo corresponds to a
         // ray entering the surface through vacuum.
 
+        // Check if entering or exiting
+        double n, sign;
+        if (wo.x < 0) {
+            // Inside, exiting
+            n = ior;
+            sign = 1.0;
+        }
+        else {
+            // Outside, entering
+            n = 1.0 / ior;
+            sign = -1.0;
+        }
+        double term = 1 - (n * n * (1 - (wo.z * wo.z)));
+        if (term < 0) {
+            return false;
+        }
+        *wi = Vector3D(-n * wo.x, -n * wo.y, sign * sqrt(term));
         return true;
 
     }
