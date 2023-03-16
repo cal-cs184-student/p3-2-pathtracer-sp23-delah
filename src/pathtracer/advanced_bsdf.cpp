@@ -94,8 +94,9 @@ namespace CGL {
     Vector3D RefractionBSDF::sample_f(const Vector3D wo, Vector3D* wi, double* pdf) {
         // TODO Project 3-2: Part 1
         // Implement RefractionBSDF
-        double n = wo.x < 0 ? ior : 1.0 / ior;
+        double n = wo.z < 0 ? ior : 1.0 / ior;
         bool result = refract(wo, wi, ior);
+        *pdf = 1.0;
         if (!result) {
             return Vector3D();
         }
@@ -157,7 +158,7 @@ namespace CGL {
 
         // Check if entering or exiting
         double n, sign;
-        if (wo.x < 0) {
+        if (wo.z < 0) {
             // Inside, exiting
             n = ior;
             sign = 1.0;
@@ -167,7 +168,7 @@ namespace CGL {
             n = 1.0 / ior;
             sign = -1.0;
         }
-        double term = 1 - (n * n * (1 - (wo.z * wo.z)));
+        double term = 1.0 - (n * n * (1.0 - (wo.z * wo.z)));
         if (term < 0) {
             return false;
         }
