@@ -126,7 +126,27 @@ namespace CGL {
 
         // compute Fresnel coefficient and use it as the probability of reflection
         // - Fundamentals of Computer Graphics page 305
-        return Vector3D();
+        if (!refract(wo, wi, ior)) {
+            // If there is total internal reflection, wo does not have a valid refracted wi
+            reflect(wo, wi);
+            *pdf = 1.0;
+            return reflectance / abs_cos_theta(*wi);
+        }
+        // Else
+        double r0 = (ior - 1.0) * (ior - 1.0) / (ior + 1.0) / (ior + 1.0);
+        double term = (1.0 - abs_cos_theta(*wi)) * (1.0 - abs_cos_theta(*wi)) * (1.0 - abs_cos_theta(*wi)) * (1.0 - abs_cos_theta(*wi)) * (1.0 - abs_cos_theta(*wi));
+        double R = r0 + (1.0 - r0) * term;
+        if (coin_flip(R)) {
+            reflect(wo, wi);
+            *pdf = R;
+            return R * reflectance / abs_cos_theta(*wi);
+        }
+        else {
+            refract(wo, wi, ior);
+            *pdf = 1.0 - R;
+            double n = wo.z < 0 ? ior : 1.0 / ior;
+            return (1.0 - R) * transmittance / abs_cos_theta(*wi) / (n*n);
+        }
     }
 
     void GlassBSDF::render_debugger_node()
