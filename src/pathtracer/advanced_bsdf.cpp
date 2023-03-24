@@ -46,22 +46,30 @@ namespace CGL {
         // TODO Project 3-2: Part 2
         // Compute Beckmann normal distribution function (NDF) here.
         // You will need the roughness alpha.
-        return 1.0;
+        double theta_h = getTheta(h);
+        return  (exp(-pow(tan(theta_h),2)/pow(alpha, 2)))/ (PI * pow(alpha, 2) * pow(cos(theta_h), 4));
     }
 
     Vector3D MicrofacetBSDF::F(const Vector3D wi) {
         // TODO Project 3-2: Part 2
         // Compute Fresnel term for reflection on dielectric-conductor interface.
         // You will need both eta and etaK, both of which are Vector3D.
-
+        
         return Vector3D();
     }
 
     Vector3D MicrofacetBSDF::f(const Vector3D wo, const Vector3D wi) {
         // TODO Project 3-2: Part 2
         // Implement microfacet model here.
+        Vector3D h = (wo + wi).unit();
+        Vector3D n = Vector3D(0,0,1);
 
-        return Vector3D();
+//        if (dot(n, wo) < 0 || dot(n, wi) < 0){
+//            return Vector3D();
+//        }
+
+        return (F(wi) * G(wo, wi) * D(h)) / (4.0 * dot(n, wo) * dot(n, wi));
+
     }
 
     Vector3D MicrofacetBSDF::sample_f(const Vector3D wo, Vector3D* wi, double* pdf) {

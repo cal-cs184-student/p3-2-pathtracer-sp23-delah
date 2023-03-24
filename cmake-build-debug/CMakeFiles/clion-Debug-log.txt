@@ -1,0 +1,6 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/genustori07/Downloads/p3-2-pathtracer-sp23-delah -B /Users/genustori07/Downloads/p3-2-pathtracer-sp23-delah/cmake-build-debug
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+-- Using Cocoa for window creation
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/genustori07/Downloads/p3-2-pathtracer-sp23-delah/cmake-build-debug
