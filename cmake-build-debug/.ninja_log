@@ -66,3 +66,7 @@
 20677	22122	1679611162204039448	CGL/deps/glfw/src/CMakeFiles/glfw.dir/nsgl_context.m.o	8d217e60a61c108a
 19501	21090	1679611161161461686	CGL/deps/glfw/src/CMakeFiles/glfw.dir/cocoa_monitor.m.o	a932453dd2bb3b00
 59	672	1679611925972998744	pathtracer	9f0ace1a1fc952d0
+107	2824	1679624634273797784	CMakeFiles/pathtracer.dir/src/pathtracer/advanced_bsdf.cpp.o	6933721c593a5e28
+2825	3700	1679624635110121740	pathtracer	9f0ace1a1fc952d0
+173	4022	1679626615982128402	CMakeFiles/pathtracer.dir/src/pathtracer/advanced_bsdf.cpp.o	6933721c593a5e28
+4023	4620	1679626616564179832	pathtracer	9f0ace1a1fc952d0
